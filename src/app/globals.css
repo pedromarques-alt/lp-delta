@@ -221,13 +221,15 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); o
   .choice { height: 3.2rem; font-size: .9rem; }
   .btn-block { height: 3rem; font-size: 1rem; }
   .choices, .field-row { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
+  .site-footer .container { padding: 0 1.75rem; }
+  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 2rem; padding-bottom: 2rem; }
   .partners { padding-right: 0; }
   .partners-list { flex-wrap: wrap; gap: 1rem 1.8rem; }
   .partner-name { font-size: 1.1rem; }
   .partners-sub, .partners .eyebrow, .registration, .registration .link-arrow { font-size: .8rem; }
   .registration { border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1.2rem; }
   .footer-legal { font-size: .8rem; }
+  .footer-legal-inner { padding-top: 1.2rem; padding-bottom: 1.6rem; }
   .cookie-banner { font-size: .85rem; }
   .legal-inner p, .legal-inner ul { font-size: 1rem; }
 }

@@ -179,7 +179,7 @@ export const deltaCapital: ClientConfig = {
         { name: "Santander", logo: "/clients/delta-capital/partners/santander.png", heightRem: 0.85 },
         { name: "BPI", logo: "/clients/delta-capital/partners/bpi.png", heightRem: 1.15 },
         { name: "CGD", logo: "/clients/delta-capital/partners/cgd.png", heightRem: 1.5 },
-        { name: "Bankinter", logo: "/clients/delta-capital/partners/bankinter.png", heightRem: 1.4 },
+        { name: "Bankinter", logo: "/clients/delta-capital/partners/bankinter.png", heightRem: 0.95 },
         { name: "UCI", logo: "/clients/delta-capital/partners/uci.png", heightRem: 1.05 },
         { name: "CTT", logo: "/clients/delta-capital/partners/ctt.png", heightRem: 1.25 },
         { name: "ABANCA", logo: "/clients/delta-capital/partners/abanca.png", heightRem: 0.7 },
