@@ -192,8 +192,7 @@ export const deltaCapital: ClientConfig = {
       { label: "Canal de Denúncia", href: "https://www.deltacapital.pt/denuncias" },
       { label: "Livro de Reclamações", href: "https://www.livroreclamacoes.pt/Inicio/" },
       { label: "Centro de Arbitragem Nacional", href: "https://www.cniacc.pt/pt/" },
-      // TODO: confirmar o nome do 7.º link com o cliente (a imagem de referência só mostra 6)
-      { label: "Centro de Arbitragem do Algarve", href: "https://consumoalgarve.pt/index.php/pt/" },
+      { label: "Centro de Arbitragem Regional", href: "https://consumoalgarve.pt/index.php/pt/" },
     ],
     website: { label: "www.deltacapital.pt", href: "https://deltacapital.pt/" },
     registration: { text: "Registada no Banco de Portugal com n.º 8238." },
