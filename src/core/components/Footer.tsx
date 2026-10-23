@@ -37,9 +37,20 @@ export function Footer({ config }: { config: ClientConfig }) {
                 <Icon name="shield" size={26} />
               </span>
               <p>{footer.registration.text}</p>
-              <Link href="/politica-de-privacidade" className="link-arrow">
-                {labels.privacy} <Icon name="arrow" size={14} />
-              </Link>
+              {footer.registration.link ? (
+                <a
+                  href={footer.registration.link.href}
+                  className="link-arrow"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {footer.registration.link.label} <Icon name="arrow" size={14} />
+                </a>
+              ) : (
+                <Link href="/politica-de-privacidade" className="link-arrow">
+                  {labels.privacy} <Icon name="arrow" size={14} />
+                </Link>
+              )}
             </div>
           )}
         </div>

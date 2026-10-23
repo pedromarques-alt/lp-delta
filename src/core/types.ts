@@ -114,7 +114,7 @@ export interface FooterConfig {
     subtitle: string;
     items: { name: string; logo?: string; heightRem?: number }[];
   };
-  registration?: { text: string };
+  registration?: { text: string; link?: { label: string; href: string } };
   /** Link para o site institucional do cliente */
   website?: { label: string; href: string };
   /** Links legais do rodapé (abrem em novo separador). Se vazio, usa as páginas internas. */

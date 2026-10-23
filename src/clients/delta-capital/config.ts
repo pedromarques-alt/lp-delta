@@ -195,7 +195,10 @@ export const deltaCapital: ClientConfig = {
       { label: "Centro de Arbitragem Regional", href: "https://consumoalgarve.pt/index.php/pt/" },
     ],
     website: { label: "www.deltacapital.pt", href: "https://deltacapital.pt/" },
-    registration: { text: "Registada no Banco de Portugal com n.º 8238." },
+    registration: {
+      text: "Registada no Banco de Portugal com n.º 8238.",
+      link: { label: "Informação Legal", href: "https://www.deltacapital.pt/informacao-legal" },
+    },
   },
 
   legal: {
