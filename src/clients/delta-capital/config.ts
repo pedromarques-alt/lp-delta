@@ -185,6 +185,16 @@ export const deltaCapital: ClientConfig = {
         { name: "ABANCA", logo: "/clients/delta-capital/partners/abanca.png", heightRem: 0.7 },
       ],
     },
+    links: [
+      { label: "Termos e Condições", href: "https://www.deltacapital.pt/termos-e-condicoes" },
+      { label: "Política de Privacidade", href: "https://www.deltacapital.pt/politica-de-privacidade" },
+      { label: "Política de Cookies", href: "https://www.deltacapital.pt/politica-de-cookies" },
+      { label: "Canal de Denúncia", href: "https://www.deltacapital.pt/denuncias" },
+      { label: "Livro de Reclamações", href: "https://www.livroreclamacoes.pt/Inicio/" },
+      { label: "Centro de Arbitragem Nacional", href: "https://www.cniacc.pt/pt/" },
+      // TODO: confirmar o nome do 7.º link com o cliente (a imagem de referência só mostra 6)
+      { label: "Centro de Arbitragem do Algarve", href: "https://consumoalgarve.pt/index.php/pt/" },
+    ],
     website: { label: "www.deltacapital.pt", href: "https://deltacapital.pt/" },
     registration: { text: "Registada no Banco de Portugal com n.º 8238." },
   },

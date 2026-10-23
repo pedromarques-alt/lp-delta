@@ -51,16 +51,26 @@ export function Footer({ config }: { config: ClientConfig }) {
             © {year} {legal.tradeName}. {labels.rights}
           </p>
           <nav aria-label="Legal">
-            <Link href="/politica-de-privacidade">{labels.privacy}</Link>
-            <Link href="/politica-de-cookies">{labels.cookies}</Link>
-            {legal.complaintsBook && (
-              <a
-                href="https://www.livroreclamacoes.pt"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {labels.complaintsBook}
-              </a>
+            {footer.links ? (
+              footer.links.map((l) => (
+                <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+                  {l.label}
+                </a>
+              ))
+            ) : (
+              <>
+                <Link href="/politica-de-privacidade">{labels.privacy}</Link>
+                <Link href="/politica-de-cookies">{labels.cookies}</Link>
+                {legal.complaintsBook && (
+                  <a
+                    href="https://www.livroreclamacoes.pt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {labels.complaintsBook}
+                  </a>
+                )}
+              </>
             )}
             {footer.website && (
               <a className="footer-website" href={footer.website.href} target="_blank" rel="noopener noreferrer">

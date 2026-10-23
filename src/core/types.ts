@@ -117,6 +117,8 @@ export interface FooterConfig {
   registration?: { text: string };
   /** Link para o site institucional do cliente */
   website?: { label: string; href: string };
+  /** Links legais do rodapé (abrem em novo separador). Se vazio, usa as páginas internas. */
+  links?: { label: string; href: string }[];
 }
 
 export interface LegalData {
