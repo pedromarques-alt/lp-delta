@@ -221,6 +221,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); o
   .choice { height: 3.2rem; font-size: .9rem; }
   .btn-block { height: 3rem; font-size: 1rem; }
   .choices, .field-row { grid-template-columns: 1fr; }
+  .form-section { padding-bottom: 1rem; }
   .site-footer .container { padding: 0 1.75rem; }
   .footer-top { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.75rem; padding-bottom: 2rem; }
   .partners { padding-right: 0; }
