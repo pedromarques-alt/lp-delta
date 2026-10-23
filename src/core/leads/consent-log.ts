@@ -14,7 +14,6 @@ export interface ConsentRecord {
   page: string;
   clientTimestamp: string;
   receivedAt: string;
-  ip: string | null;
   userAgent: string;
 }
 

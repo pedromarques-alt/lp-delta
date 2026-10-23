@@ -39,7 +39,6 @@ export async function POST(req: Request) {
       page: str("page", 300),
       clientTimestamp: str("at", 40),
       receivedAt: new Date().toISOString(),
-      ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
       userAgent: (req.headers.get("user-agent") ?? "").slice(0, 300),
     });
   } catch (e) {

@@ -63,7 +63,6 @@ export async function POST(req: Request) {
     // Prova de consentimento: liga o lead ao registo guardado por /api/consent
     cookieConsentId: str("cookieConsentId", 40),
     policyVersion: str("policyVersion", 60),
-    ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
     userAgent: (req.headers.get("user-agent") ?? "").slice(0, 300),
     receivedAt: new Date().toISOString(),
   };
@@ -96,7 +95,6 @@ export async function POST(req: Request) {
       page: lead.page,
       clientTimestamp: "",
       receivedAt: lead.receivedAt,
-      ip: lead.ip,
       userAgent: lead.userAgent,
     });
   } catch (e) {

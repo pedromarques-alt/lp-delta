@@ -34,7 +34,7 @@ function writeConsent(v: StoredConsent) {
   window.dispatchEvent(new Event(CONSENT_EVENT));
 }
 
-/** Envia a prova de consentimento para o servidor (IP, data, versão, textos mostrados). */
+/** Envia a prova de consentimento para o servidor (data, versão, textos mostrados). */
 async function syncConsent(v: StoredConsent, config: ClientConfig): Promise<void> {
   try {
     const res = await fetch("/api/consent", {

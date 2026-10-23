@@ -14,7 +14,6 @@ export interface Lead {
   page: string;
   cookieConsentId: string;
   policyVersion: string;
-  ip: string | null;
   userAgent: string;
   receivedAt: string;
 }
@@ -58,7 +57,6 @@ export async function sendLeadEmail(lead: Lead) {
     ["Recebido em", lead.receivedAt],
     ["Consentimento (ID)", lead.cookieConsentId],
     ["Versão das políticas aceites", lead.policyVersion],
-    ["IP", lead.ip ?? "—"],
   ];
 
   const message = {
