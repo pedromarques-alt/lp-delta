@@ -65,7 +65,16 @@ export function Footer({ config }: { config: ClientConfig }) {
             {footer.links ? (
               footer.links.map((l) => (
                 <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
-                  {l.label}
+                  {l.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={l.image.src}
+                      alt={l.label}
+                      style={{ height: `${l.image.heightRem}rem`, width: "auto", display: "block" }}
+                    />
+                  ) : (
+                    l.label
+                  )}
                 </a>
               ))
             ) : (

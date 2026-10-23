@@ -190,7 +190,11 @@ export const deltaCapital: ClientConfig = {
       { label: "Política de Privacidade", href: "https://www.deltacapital.pt/politica-de-privacidade" },
       { label: "Política de Cookies", href: "https://www.deltacapital.pt/politica-de-cookies" },
       { label: "Canal de Denúncia", href: "https://www.deltacapital.pt/denuncias" },
-      { label: "Livro de Reclamações", href: "https://www.livroreclamacoes.pt/Inicio/" },
+      {
+        label: "Livro de Reclamações",
+        href: "https://www.livroreclamacoes.pt/Inicio/",
+        image: { src: "/clients/delta-capital/livro-reclamacoes.png", heightRem: 1.6 },
+      },
       { label: "Centro de Arbitragem Nacional", href: "https://www.cniacc.pt/pt/" },
       { label: "Centro de Arbitragem Regional", href: "https://consumoalgarve.pt/index.php/pt/" },
     ],
