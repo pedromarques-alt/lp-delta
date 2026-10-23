@@ -108,6 +108,18 @@ export const deltaCapital: ClientConfig = {
         },
       ],
     },
+    // TODO: o design não define as opções — confirmar com o cliente
+    phaseSelect: {
+      label: "Em que fase está o processo?",
+      placeholder: "Selecione uma opção",
+      options: [
+        "Ainda estou a pensar / a explorar",
+        "Já estou a ver casas",
+        "Já tenho casa escolhida",
+        "Já tenho proposta ou contrato-promessa",
+        "Já tenho crédito e quero transferir",
+      ],
+    },
     select: {
       label: "Valor pretendido de crédito",
       placeholder: "Selecione uma opção",
@@ -118,6 +130,19 @@ export const deltaCapital: ClientConfig = {
         "200.000 € – 300.000 €",
         "300.000 € – 500.000 €",
         "Mais de 500.000 €",
+      ],
+    },
+    // TODO: o design não define os escalões — confirmar com o cliente
+    incomeSelect: {
+      label: "Rendimento líquido mensal do agregado",
+      placeholder: "Selecione uma opção",
+      options: [
+        "Até 1.000 €",
+        "1.000 € – 1.500 €",
+        "1.500 € – 2.000 €",
+        "2.000 € – 3.000 €",
+        "3.000 € – 5.000 €",
+        "Mais de 5.000 €",
       ],
     },
     labels: {
@@ -163,22 +188,21 @@ export const deltaCapital: ClientConfig = {
         { name: "ABANCA", logo: "/clients/delta-capital/partners/abanca.png", heightRem: 0.7 },
       ],
     },
-    // TODO: preencher o número de registo real no Banco de Portugal
     website: { label: "www.deltacapital.pt", href: "https://deltacapital.pt/" },
-    registration: { text: "Registada no Banco de Portugal com n.º 0000X." },
+    registration: { text: "Registada no Banco de Portugal com n.º 8238." },
   },
 
   legal: {
     // TODO: dados reais da empresa (todos obrigatórios antes de publicar)
-    legalName: "[Denominação social]",
+    legalName: "Delta Capital Intermediários de Crédito, Lda.",
     tradeName: "Delta Capital",
-    nif: "[NIF]",
-    address: "[Morada da sede]",
+    nif: "518677150",
+    address: "Rua João de Deus, n.º 20, Faro",
     email: "[email de contacto]",
     privacyEmail: "[email de proteção de dados]",
     retention: "[prazo de conservação, ex.: 24 meses]",
     complaintsBook: true,
-    lastUpdated: "16 de outubro de 2026",
+    lastUpdated: "23 de outubro de 2026",
   },
 
   tracking: { gtmId: "GTM-TPJF4CT4" },
@@ -189,6 +213,10 @@ export const deltaCapital: ClientConfig = {
     accept: "Aceitar",
     reject: "Recusar",
     policyLabel: "Política de Cookies",
+    privacyNotice: "Ao aceitar, está também a concordar com a nossa",
+    formBlocked:
+      "Para enviar o pedido tem de aceitar os cookies e a Política de Privacidade.",
+    formAccept: "Aceitar cookies e Política de Privacidade",
   },
 
   labels: {

@@ -4,6 +4,7 @@ import { emailConfigured, sendLeadEmail } from "@/core/leads/email";
 export const runtime = "nodejs";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const phoneRe = /^[+0-9 ()\-]{9,20}$/;
 
 export async function POST(req: Request) {
@@ -49,13 +50,20 @@ export async function POST(req: Request) {
   const lead = {
     client: str("client", 60),
     choice: str("choice", 60),
+    phase: str("phase", 120),
     amount: str("amount", 80),
+    income: str("income", 80),
     name: str("name", 120),
     phone: str("phone", 30),
     email: str("email", 160),
     message: str("message", 2000),
     consent: body.consent === undefined ? null : body.consent === true,
     page: str("page", 300),
+    // Prova de consentimento: liga o lead ao registo guardado por /api/consent
+    cookieConsentId: str("cookieConsentId", 40),
+    policyVersion: str("policyVersion", 60),
+    ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+    userAgent: (req.headers.get("user-agent") ?? "").slice(0, 300),
     receivedAt: new Date().toISOString(),
   };
 
@@ -64,7 +72,10 @@ export async function POST(req: Request) {
     !emailRe.test(lead.email) ||
     !phoneRe.test(lead.phone) ||
     !lead.amount ||
-    lead.consent === false
+    !lead.phase ||
+    !lead.income ||
+    lead.consent === false ||
+    !uuidRe.test(lead.cookieConsentId)
   ) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 422 });
   }

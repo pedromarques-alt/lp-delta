@@ -1,30 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import type { ClientConfig } from "../types";
-
-const CONSENT_STORAGE_ITEM = "cookie-consent-v1";
-type Consent = "accepted" | "rejected" | null;
+import { saveConsent, useConsent, type ConsentStatus } from "../consent";
 
 export function CookieBanner({ config }: { config: ClientConfig }) {
-  const [consent, setConsent] = useState<Consent>(null);
-  const [ready, setReady] = useState(false);
+  const { consent: stored, ready } = useConsent(config);
+  const consent = stored?.status ?? null;
 
-  useEffect(() => {
-    try {
-      const v = localStorage.getItem(CONSENT_STORAGE_ITEM) as Consent;
-      if (v === "accepted" || v === "rejected") setConsent(v);
-    } catch {}
-    setReady(true);
-  }, []);
-
-  function choose(v: "accepted" | "rejected") {
-    setConsent(v);
-    try {
-      localStorage.setItem(CONSENT_STORAGE_ITEM, v);
-    } catch {}
+  function choose(v: ConsentStatus) {
+    saveConsent(v, config);
     // Consent Mode v2: o GTM já carregou com tudo negado; só atualiza o estado
     if (config.tracking?.gtmId) {
       const w = window as unknown as { dataLayer?: unknown[] };
@@ -66,10 +52,16 @@ export function CookieBanner({ config }: { config: ClientConfig }) {
 
       {ready && consent === null && (
         <div className="cookie-banner" role="dialog" aria-label="Cookies">
+          <div className="cookie-text">
           <p>
             {config.cookies.text}{" "}
             <Link href="/politica-de-cookies">{config.cookies.policyLabel}</Link>
           </p>
+          <p className="cookie-privacy">
+            {config.cookies.privacyNotice}{" "}
+            <Link href="/politica-de-privacidade">{config.labels.privacy}</Link>.
+          </p>
+          </div>
           <div className="cookie-actions">
             <button className="btn btn-ghost btn-sm" onClick={() => choose("rejected")}>
               {config.cookies.reject}

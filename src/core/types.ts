@@ -60,6 +60,12 @@ export interface FormOption {
   icon: IconName;
 }
 
+export interface SelectConfig {
+  label: string;
+  placeholder: string;
+  options: string[];
+}
+
 export interface FormConfig {
   id: string; // âncora (#id)
   badge: string;
@@ -68,7 +74,12 @@ export interface FormConfig {
   /** Indicador "1 de 4" tal como no design (opcional) */
   progress?: { current: number; total: number };
   choice: { label: string; options: FormOption[] };
-  select: { label: string; placeholder: string; options: string[] };
+  /** Fase do processo (campo `phase`) */
+  phaseSelect: SelectConfig;
+  /** Valor pretendido (campo `amount`) */
+  select: SelectConfig;
+  /** Rendimento líquido mensal do agregado (campo `income`) */
+  incomeSelect: SelectConfig;
   labels: {
     name: string;
     namePlaceholder: string;
@@ -149,6 +160,12 @@ export interface ClientConfig {
     accept: string;
     reject: string;
     policyLabel: string;
+    /** Aviso de que aceitar implica concordar com a Política de Privacidade (seguido do link) */
+    privacyNotice: string;
+    /** Aviso no formulário quando os cookies não foram aceites */
+    formBlocked: string;
+    /** Botão do formulário para aceitar os cookies */
+    formAccept: string;
   };
   /** Rótulos do footer */
   labels: {

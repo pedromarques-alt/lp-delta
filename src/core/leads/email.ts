@@ -3,13 +3,19 @@ import nodemailer from "nodemailer";
 export interface Lead {
   client: string;
   choice: string;
+  phase: string;
   amount: string;
+  income: string;
   name: string;
   phone: string;
   email: string;
   message: string;
   consent: boolean | null;
   page: string;
+  cookieConsentId: string;
+  policyVersion: string;
+  ip: string | null;
+  userAgent: string;
   receivedAt: string;
 }
 
@@ -44,10 +50,15 @@ export async function sendLeadEmail(lead: Lead) {
     ["Telefone", lead.phone],
     ["Email", lead.email],
     ["Pedido", lead.choice],
+    ["Fase do processo", lead.phase],
     ["Valor pretendido", lead.amount],
+    ["Rendimento líquido mensal do agregado", lead.income],
     ["Mensagem", lead.message || "—"],
     ["Página", lead.page],
     ["Recebido em", lead.receivedAt],
+    ["Consentimento (ID)", lead.cookieConsentId],
+    ["Versão das políticas aceites", lead.policyVersion],
+    ["IP", lead.ip ?? "—"],
   ];
 
   const message = {

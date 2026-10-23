@@ -2,7 +2,10 @@ import type { ClientConfig } from "../types";
 
 export interface LegalDoc {
   title: string;
-  sections: { heading: string; paragraphs: string[] }[];
+  /** Data de última atualização, mostrada por baixo do título */
+  updatedAt?: string;
+  /** Cada bloco é um parágrafo (string) ou uma lista de pontos (string[]) */
+  sections: { heading: string; paragraphs: (string | string[])[] }[];
 }
 
 /**
@@ -14,57 +17,123 @@ export function privacyPolicy(c: ClientConfig): LegalDoc {
   const l = c.legal;
   return {
     title: "Política de Privacidade",
+    updatedAt: l.lastUpdated,
     sections: [
       {
-        heading: "1. Responsável pelo tratamento",
+        heading: "1. Responsável pelo Tratamento dos Dados",
         paragraphs: [
-          `${l.legalName} (${l.tradeName}), NIF ${l.nif}, com sede em ${l.address}, é a entidade responsável pelo tratamento dos dados pessoais recolhidos neste website.`,
-          `Para qualquer questão sobre proteção de dados, contacte-nos através de ${l.privacyEmail}.`,
+          `A ${l.legalName}, pessoa coletiva n.º ${l.nif}, com sede em ${l.address}, é a entidade responsável pelo tratamento dos dados pessoais recolhidos através deste website.`,
         ],
       },
       {
-        heading: "2. Dados que recolhemos",
+        heading: "2. Dados Pessoais Recolhidos",
         paragraphs: [
-          "Através do formulário de contacto recolhemos: tipo de pedido, valor pretendido, nome, contacto telefónico, email e, opcionalmente, a mensagem que nos enviar.",
-          "Se aceitar cookies de medição, recolhemos ainda dados de navegação de forma agregada (ver Política de Cookies).",
-          "Para proteger o formulário contra spam e abusos, utilizamos o Google reCAPTCHA, que analisa a interação com o site (por exemplo, endereço IP e comportamento no formulário). Este serviço é prestado pela Google e está sujeito à Política de Privacidade (https://policies.google.com/privacy) e aos Termos de Serviço (https://policies.google.com/terms) da Google.",
+          "Através dos formulários de contacto disponibilizados no website poderão ser recolhidos os seguintes dados:",
+          [
+            "Nome",
+            "Número de telefone",
+            "Endereço de correio eletrónico",
+            "Informações relativas ao pedido de financiamento",
+            "Outros dados fornecidos voluntariamente pelo utilizador",
+          ],
         ],
       },
       {
-        heading: "3. Finalidades e fundamento de licitude",
+        heading: "3. Finalidades do Tratamento",
         paragraphs: [
-          "Utilizamos os seus dados para responder ao seu pedido de contacto e analisar a sua situação com vista a apresentar-lhe uma solução adequada. O fundamento é a execução de diligências pré-contratuais a seu pedido e o seu consentimento.",
-          "Os dados de medição de audiência só são tratados com o seu consentimento.",
+          "Os dados pessoais recolhidos destinam-se a:",
+          [
+            "Responder a pedidos de contacto",
+            "Prestar informações sobre os serviços disponibilizados",
+            "Analisar pedidos de financiamento",
+            "Apresentar propostas junto de instituições financeiras parceiras",
+            "Cumprir obrigações legais e regulamentares",
+            "Melhorar a qualidade dos serviços prestados",
+          ],
         ],
       },
       {
-        heading: "4. Destinatários",
+        heading: "4. Fundamento Jurídico",
         paragraphs: [
-          "Os dados podem ser comunicados a entidades parceiras (por exemplo, instituições financeiras) apenas na medida necessária para dar seguimento ao seu pedido, bem como a prestadores de serviços que tratam dados em nosso nome (alojamento, CRM, comunicações), vinculados por contrato.",
+          "O tratamento dos dados pessoais assenta nos seguintes fundamentos:",
+          [
+            "Consentimento do titular dos dados",
+            "Execução de diligências pré-contratuais solicitadas pelo titular",
+            "Cumprimento de obrigações legais",
+            "Interesse legítimo da empresa no desenvolvimento da sua atividade",
+          ],
         ],
       },
       {
-        heading: "5. Conservação",
+        heading: "5. Conservação dos Dados",
         paragraphs: [
-          `Conservamos os seus dados pelo período de ${l.retention}, ou enquanto for necessário para cumprir obrigações legais.`,
+          "Os dados pessoais serão conservados apenas durante o período necessário para as finalidades que justificaram a sua recolha ou durante os prazos legalmente exigidos.",
         ],
       },
       {
-        heading: "6. Os seus direitos",
+        heading: "6. Partilha de Dados",
         paragraphs: [
-          `Pode exercer os direitos de acesso, retificação, apagamento, limitação, oposição e portabilidade, e retirar o consentimento a qualquer momento, enviando um pedido para ${l.privacyEmail}.`,
-          "Tem ainda o direito de apresentar reclamação à Comissão Nacional de Proteção de Dados (www.cnpd.pt).",
+          "Os dados poderão ser comunicados:",
+          [
+            "A instituições de crédito e entidades financeiras parceiras",
+            `A prestadores de serviços que atuem em nome da ${l.tradeName}`,
+            "A autoridades públicas ou reguladoras quando legalmente exigido",
+          ],
+          `A ${l.tradeName} não vende nem cede dados pessoais a terceiros para fins comerciais.`,
         ],
       },
       {
-        heading: "7. Segurança",
+        heading: "7. Direitos dos Titulares dos Dados",
         paragraphs: [
-          "Adotamos medidas técnicas e organizativas adequadas para proteger os seus dados contra acesso não autorizado, perda ou alteração.",
+          "Nos termos do Regulamento Geral sobre a Proteção de Dados (RGPD), o titular dos dados pode exercer os seguintes direitos:",
+          [
+            "Direito de acesso",
+            "Direito de retificação",
+            "Direito ao apagamento",
+            "Direito à limitação do tratamento",
+            "Direito de oposição",
+            "Direito à portabilidade dos dados",
+          ],
+          `Para o exercício destes direitos, o titular poderá contactar a ${l.tradeName} através dos meios de contacto disponibilizados no website.`,
         ],
       },
       {
-        heading: "8. Atualizações",
-        paragraphs: [`Última atualização: ${l.lastUpdated}.`],
+        heading: "8. Segurança dos Dados",
+        paragraphs: [
+          `A ${l.tradeName} adota medidas técnicas e organizativas adequadas para proteger os dados pessoais contra perda, destruição, alteração, acesso não autorizado ou qualquer outra forma de tratamento ilícito.`,
+        ],
+      },
+      {
+        heading: "9. Cookies",
+        paragraphs: [
+          "Este website utiliza cookies para melhorar a experiência de navegação e analisar a utilização do website.",
+          "Os cookies podem incluir:",
+          [
+            "Cookies essenciais ao funcionamento do website",
+            "Cookies estatísticos e analíticos",
+            "Cookies de desempenho",
+          ],
+          "O utilizador pode, a qualquer momento, configurar o seu navegador para recusar ou eliminar cookies, embora tal possa afetar algumas funcionalidades do website.",
+        ],
+      },
+      {
+        heading: "10. Reclamações",
+        paragraphs: [
+          "Sem prejuízo de qualquer outro recurso administrativo ou judicial, o titular dos dados tem o direito de apresentar reclamação junto da Comissão Nacional de Proteção de Dados (CNPD).",
+        ],
+      },
+      {
+        heading: "11. Alterações à Política de Privacidade",
+        paragraphs: [
+          `A ${l.tradeName} reserva-se o direito de alterar a presente Política de Privacidade a qualquer momento, sendo as alterações publicadas nesta página.`,
+        ],
+      },
+      // Acrescento ao texto institucional: o formulário usa reCAPTCHA e isso tem de estar divulgado.
+      {
+        heading: "12. Proteção do Formulário (Google reCAPTCHA)",
+        paragraphs: [
+          "Para proteger o formulário de contacto contra spam e abusos, utilizamos o Google reCAPTCHA, que analisa a interação com o website (por exemplo, o endereço IP e o comportamento no formulário). Este serviço é prestado pela Google e está sujeito à Política de Privacidade (https://policies.google.com/privacy) e aos Termos de Serviço (https://policies.google.com/terms) da Google.",
+        ],
       },
     ],
   };

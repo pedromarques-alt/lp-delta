@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { ClientConfig } from "../types";
 import { Icon } from "./Icon";
+import { saveConsent, useConsent } from "../consent";
 import { getRecaptchaToken, loadRecaptcha } from "./recaptcha";
 
 type Status = "idle" | "sending" | "ok" | "error";
@@ -14,6 +15,8 @@ export function LeadForm({ config }: { config: ClientConfig }) {
   const f = config.form;
   const [choice, setChoice] = useState(f.choice.options[0]?.value ?? "");
   const [status, setStatus] = useState<Status>("idle");
+  const { consent, ready } = useConsent(config);
+  const accepted = consent?.status === "accepted";
 
   useEffect(() => {
     if (SITE_KEY) loadRecaptcha(SITE_KEY);
@@ -22,16 +25,21 @@ export function LeadForm({ config }: { config: ClientConfig }) {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
+    if (!consent || consent.status !== "accepted") return;
     const data = new FormData(form);
     const payload = {
       client: config.id,
       choice,
+      phase: String(data.get("phase") ?? ""),
       amount: String(data.get("amount") ?? ""),
+      income: String(data.get("income") ?? ""),
       name: String(data.get("name") ?? ""),
       phone: String(data.get("phone") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
       consent: f.consentCheckbox ? data.get("consent") === "on" : undefined,
+      cookieConsentId: consent.id,
+      policyVersion: consent.policyVersion,
       website: String(data.get("website") ?? ""), // honeypot
       page: typeof window !== "undefined" ? window.location.href : "",
     };
@@ -93,7 +101,23 @@ export function LeadForm({ config }: { config: ClientConfig }) {
               <p>{f.successText}</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate={false}>
+            <form onSubmit={onSubmit} noValidate={false} aria-disabled={!accepted}>
+              {ready && !accepted && (
+                <div className="consent-blocked" role="alert">
+                  <p>{config.cookies.formBlocked}</p>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-sm"
+                    onClick={() => saveConsent("accepted", config)}
+                  >
+                    {config.cookies.formAccept}
+                  </button>
+                </div>
+              )}
+              <div
+                className={ready && !accepted ? "form-locked" : undefined}
+                inert={ready && !accepted}
+              >
               <fieldset className="field">
                 <legend>
                   {f.choice.label} <span className="req">*</span>
@@ -118,21 +142,29 @@ export function LeadForm({ config }: { config: ClientConfig }) {
                 </div>
               </fieldset>
 
-              <div className="field">
-                <label htmlFor="amount">
-                  {f.select.label} <span className="req">*</span>
-                </label>
-                <select id="amount" name="amount" required defaultValue="">
-                  <option value="" disabled>
-                    {f.select.placeholder}
-                  </option>
-                  {f.select.options.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
+              {(
+                [
+                  ["phase", f.phaseSelect],
+                  ["amount", f.select],
+                  ["income", f.incomeSelect],
+                ] as const
+              ).map(([name, sel]) => (
+                <div className="field" key={name}>
+                  <label htmlFor={name}>
+                    {sel.label} <span className="req">*</span>
+                  </label>
+                  <select id={name} name={name} required defaultValue="">
+                    <option value="" disabled>
+                      {sel.placeholder}
                     </option>
-                  ))}
-                </select>
-              </div>
+                    {sel.options.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
 
               <div className="field-row">
                 <div className="field">
@@ -217,7 +249,7 @@ export function LeadForm({ config }: { config: ClientConfig }) {
               <button
                 type="submit"
                 className="btn btn-primary btn-block"
-                disabled={status === "sending"}
+                disabled={status === "sending" || !accepted}
               >
                 {status === "sending" ? f.submitting : f.submit}
                 <Icon name="arrow" size={16} />
@@ -233,6 +265,7 @@ export function LeadForm({ config }: { config: ClientConfig }) {
                 <Icon name="lock" size={14} />
                 {f.privacyNote}
               </p>
+              </div>
             </form>
           )}
         </div>
