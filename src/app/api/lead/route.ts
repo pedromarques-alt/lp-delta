@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logConsent } from "@/core/leads/consent-log";
 import { emailConfigured, sendLeadEmail } from "@/core/leads/email";
 
 export const runtime = "nodejs";
@@ -78,6 +79,28 @@ export async function POST(req: Request) {
     !uuidRe.test(lead.cookieConsentId)
   ) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 422 });
+  }
+
+  // Liga a pessoa (nome/email) ao consentimento dado. Não bloqueia o envio do lead se falhar.
+  try {
+    await logConsent({
+      type: "lead",
+      id: lead.cookieConsentId,
+      status: "accepted",
+      client: lead.client,
+      name: lead.name,
+      email: lead.email,
+      policyVersion: lead.policyVersion,
+      cookieText: "",
+      privacyNotice: "",
+      page: lead.page,
+      clientTimestamp: "",
+      receivedAt: lead.receivedAt,
+      ip: lead.ip,
+      userAgent: lead.userAgent,
+    });
+  } catch (e) {
+    console.error("[lead] falha ao registar consentimento", e);
   }
 
   const hook = process.env.LEAD_WEBHOOK_URL;

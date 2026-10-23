@@ -1,5 +1,5 @@
-import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
+import { logConsent } from "@/core/leads/consent-log";
 
 export const runtime = "nodejs";
 
@@ -25,38 +25,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 422 });
   }
 
-  const record = {
-    type: "consent",
-    id,
-    status,
-    client: str("client", 60),
-    policyVersion: str("policyVersion", 60),
-    cookieText: str("cookieText", 600),
-    privacyNotice: str("privacyNotice", 300),
-    page: str("page", 300),
-    clientTimestamp: str("at", 40),
-    receivedAt: new Date().toISOString(),
-    ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
-    userAgent: (req.headers.get("user-agent") ?? "").slice(0, 300),
-  };
-  const hash = createHash("sha256").update(JSON.stringify(record)).digest("hex");
-  const signed = { ...record, hash };
-
-  console.log("[consent]", JSON.stringify(signed));
-
-  const hook = process.env.CONSENT_WEBHOOK_URL;
-  if (hook) {
-    try {
-      const r = await fetch(hook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signed),
-      });
-      if (!r.ok) throw new Error(`webhook ${r.status}`);
-    } catch (e) {
-      console.error("[consent] falha no webhook", e);
-      return NextResponse.json({ ok: false }, { status: 502 });
-    }
+  try {
+    await logConsent({
+      type: "consent",
+      id,
+      status,
+      client: str("client", 60),
+      name: "",
+      email: "",
+      policyVersion: str("policyVersion", 60),
+      cookieText: str("cookieText", 600),
+      privacyNotice: str("privacyNotice", 300),
+      page: str("page", 300),
+      clientTimestamp: str("at", 40),
+      receivedAt: new Date().toISOString(),
+      ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+      userAgent: (req.headers.get("user-agent") ?? "").slice(0, 300),
+    });
+  } catch (e) {
+    console.error("[consent] falha no webhook", e);
+    return NextResponse.json({ ok: false }, { status: 502 });
   }
   return NextResponse.json({ ok: true });
 }
