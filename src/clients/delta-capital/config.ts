@@ -179,7 +179,7 @@ export const deltaCapital: ClientConfig = {
         { name: "Santander", logo: "/clients/delta-capital/partners/santander.png", heightRem: 0.85 },
         { name: "BPI", logo: "/clients/delta-capital/partners/bpi.png", heightRem: 1.15 },
         { name: "CGD", logo: "/clients/delta-capital/partners/cgd.png", heightRem: 1.5 },
-        { name: "Inter", logo: "/clients/delta-capital/partners/inter.png", heightRem: 1.0 },
+        { name: "Bankinter", logo: "/clients/delta-capital/partners/bankinter.png", heightRem: 1.4 },
         { name: "UCI", logo: "/clients/delta-capital/partners/uci.png", heightRem: 1.05 },
         { name: "CTT", logo: "/clients/delta-capital/partners/ctt.png", heightRem: 1.25 },
         { name: "ABANCA", logo: "/clients/delta-capital/partners/abanca.png", heightRem: 0.7 },
@@ -197,6 +197,7 @@ export const deltaCapital: ClientConfig = {
       },
       { label: "Centro de Arbitragem Nacional", href: "https://www.cniacc.pt/pt/" },
       { label: "Centro de Arbitragem Regional", href: "https://consumoalgarve.pt/index.php/pt/" },
+      { label: "Livro de Reclamações", href: "https://www.livroreclamacoes.pt/Inicio/" },
     ],
     website: { label: "www.deltacapital.pt", href: "https://deltacapital.pt/" },
     registration: {
