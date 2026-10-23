@@ -230,7 +230,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); o
   .partners-sub, .partners .eyebrow, .registration, .registration .link-arrow { font-size: .8rem; }
   .registration { border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1.2rem; }
   .footer-legal { font-size: .8rem; }
-  .footer-legal-inner { padding-top: 1.2rem; padding-bottom: 2.75rem; }
+  .footer-legal-inner { padding-top: 1.2rem; padding-bottom: 4rem; }
   .footer-badges { gap: 1rem 2.75rem; }
   .footer-badges a:not(.powered-by) img { height: 3rem !important; }
   .cookie-banner { font-size: .85rem; }
