@@ -63,20 +63,13 @@ export function Footer({ config }: { config: ClientConfig }) {
           </p>
           <nav aria-label="Legal">
             {footer.links ? (
-              footer.links.map((l) => (
-                <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
-                  {l.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={l.image.src}
-                      alt={l.label}
-                      style={{ height: `${l.image.heightRem}rem`, width: "auto", display: "block" }}
-                    />
-                  ) : (
-                    l.label
-                  )}
-                </a>
-              ))
+              footer.links
+                .filter((l) => !l.image)
+                .map((l) => (
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                  </a>
+                ))
             ) : (
               <>
                 <Link href="/politica-de-privacidade">{labels.privacy}</Link>
@@ -98,16 +91,30 @@ export function Footer({ config }: { config: ClientConfig }) {
               </a>
             )}
           </nav>
-          <a
-            className="powered-by"
-            href="https://uppout.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Powered by</span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/core/uppout-logo.png" alt="Uppout" />
-          </a>
+          <div className="footer-badges">
+            {footer.links
+              ?.filter((l) => l.image)
+              .map((l) => (
+                <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={l.image!.src}
+                    alt={l.label}
+                    style={{ height: `${l.image!.heightRem}rem`, width: "auto", display: "block" }}
+                  />
+                </a>
+              ))}
+            <a
+              className="powered-by"
+              href="https://uppout.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Powered by</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/core/uppout-logo.png" alt="Uppout" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

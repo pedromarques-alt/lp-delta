@@ -158,6 +158,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); o
 .footer-legal a:hover { text-decoration: underline; }
 .footer-legal-inner { align-items: center; }
 .footer-legal .footer-website { color: var(--primary); font-weight: 600; }
+.footer-badges { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1.5rem; }
 .footer-legal .powered-by { display: inline-flex; align-items: center; gap: .5rem; }
 .footer-legal .powered-by:hover { text-decoration: none; }
 .powered-by img { height: 1.5rem; width: auto; }

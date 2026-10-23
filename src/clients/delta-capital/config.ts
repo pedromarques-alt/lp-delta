@@ -193,7 +193,7 @@ export const deltaCapital: ClientConfig = {
       {
         label: "Livro de Reclamações",
         href: "https://www.livroreclamacoes.pt/Inicio/",
-        image: { src: "/clients/delta-capital/livro-reclamacoes.png", heightRem: 1.6 },
+        image: { src: "/clients/delta-capital/livro-reclamacoes.png", heightRem: 2 },
       },
       { label: "Centro de Arbitragem Nacional", href: "https://www.cniacc.pt/pt/" },
       { label: "Centro de Arbitragem Regional", href: "https://consumoalgarve.pt/index.php/pt/" },
