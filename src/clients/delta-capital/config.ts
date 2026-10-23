@@ -108,16 +108,14 @@ export const deltaCapital: ClientConfig = {
         },
       ],
     },
-    // TODO: o design não define as opções — confirmar com o cliente
     phaseSelect: {
       label: "Em que fase está o processo?",
       placeholder: "Selecione uma opção",
       options: [
-        "Ainda estou a pensar / a explorar",
-        "Já estou a ver casas",
-        "Já tenho casa escolhida",
-        "Já tenho proposta ou contrato-promessa",
-        "Já tenho crédito e quero transferir",
+        "Procuro crédito para agora",
+        "Procuro algo para daqui a 3 meses",
+        "Procuro algo para daqui a 6 meses",
+        "Sem urgência",
       ],
     },
     select: {
